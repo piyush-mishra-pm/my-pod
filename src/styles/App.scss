@@ -1,12 +1,25 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h1,h2,h3{
-    color: rgb(35, 35, 35);
+h1,
+h2,
+h3 {
+  color: rgb(35, 35, 35);
 }
 
-@import './player';
-@import './song';
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+h4,
+h5 {
+  font-weight: 200;
+  color: rgb(100, 100, 100);
+}
+
+@import "./player";
+@import "./song";
+@import "./library";

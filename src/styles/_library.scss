@@ -4,8 +4,11 @@
   left: 0;
   width: 20rem;
   height: 100%;
-  //background-color: cyan;
   overflow: scroll;
+  transform: translateX(-100%);
+  transition: all 0.5s ease;
+  opacity: 0;
+
   h2 {
     padding: 2rem;
   }
@@ -14,11 +17,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    //background-color: green;
     padding: 1rem 1.5rem;
 
     .library-song-item {
-      //background-color: red;
       display: flex;
       margin: 0.25rem 0.25rem;
       cursor: pointer;
@@ -67,4 +68,9 @@
 
 .selected {
   background: rgba(203, 206, 255, 0.785);
+}
+
+.active-library {
+  transform: translateX(0%);
+  opacity: 1;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -16,7 +16,23 @@ const Player = ({
   isPlaying,
   setIsPlaying,
   songs,
+  setSongs,
 }) => {
+  useEffect(
+    () => {
+      const newSongs = songs.map((stateSong) => {
+        if (stateSong.id === currentSong.id) {
+          return { ...stateSong, active: true };
+        } else {
+          return { ...stateSong, active: false };
+        }
+      });
+      setSongs(newSongs);
+    },
+    // Runs everytime when our current song gets updated.
+    [currentSong]
+  );
+
   const playSongHandler = () => {
     if (isPlaying) {
       audioRef.current.pause();

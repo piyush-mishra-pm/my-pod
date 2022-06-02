@@ -6,6 +6,7 @@ import {
   faAngleRight,
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
+import { playAudio } from "../utils";
 
 const Player = ({
   audioRef,
@@ -58,6 +59,7 @@ const Player = ({
     }
     // mod ensures that index out of bounds don't happen.
     setCurrentSong(songs[(songs.length + currentSongIndex) % songs.length]);
+    playAudio(isPlaying, audioRef);
   };
 
   return (
@@ -96,11 +98,13 @@ const Player = ({
 };
 
 function formatTime(time) {
-  return (
-    ("00" + Math.floor(time / 60)).slice(-2) +
-    ":" +
-    ("00" + Math.floor(time % 60)).slice(-2)
-  );
+  if (!time) return "00:00";
+  else
+    return (
+      ("00" + Math.floor(time / 60)).slice(-2) +
+      ":" +
+      ("00" + Math.floor(time % 60)).slice(-2)
+    );
 }
 
 export default Player;

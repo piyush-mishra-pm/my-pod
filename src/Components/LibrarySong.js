@@ -1,4 +1,5 @@
 import React from "react";
+import { playAudio } from "../utils";
 
 const LibrarySong = ({
   song,
@@ -23,16 +24,7 @@ const LibrarySong = ({
     });
 
     setSongs(newSongs);
-
-    // If a song was already playing, then audioRef will start playing this song instead.
-    if (isPlaying) {
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.then((audio) => {
-          audioRef.current.play();
-        });
-      }
-    }
+    playAudio(isPlaying, audioRef);
   };
   return (
     <div

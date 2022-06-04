@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -18,20 +18,17 @@ const Player = ({
   songs,
   setSongs,
 }) => {
-  useEffect(
-    () => {
-      const newSongs = songs.map((stateSong) => {
-        if (stateSong.id === currentSong.id) {
-          return { ...stateSong, active: true };
-        } else {
-          return { ...stateSong, active: false };
-        }
-      });
-      setSongs(newSongs);
-    },
-    // Runs everytime when our current song gets updated.
-    [currentSong]
-  );
+  // nextPrevSong: song which will become active (after skipping fwd or bwd).
+  const activeLibraryHandler = (nextPrevSong) => {
+    const newSongs = songs.map((stateSong) => {
+      if (stateSong.id === nextPrevSong.id) {
+        return { ...stateSong, active: true };
+      } else {
+        return { ...stateSong, active: false };
+      }
+    });
+    setSongs(newSongs);
+  };
 
   const playSongHandler = () => {
     if (isPlaying) {
@@ -57,9 +54,11 @@ const Player = ({
       currentSongIndex--;
     }
     // mod ensures that index out of bounds don't happen.
-    await setCurrentSong(
-      songs[(songs.length + currentSongIndex) % songs.length]
-    );
+    const newSongIndex = (songs.length + currentSongIndex) % songs.length;
+
+    await setCurrentSong(songs[newSongIndex]);
+    activeLibraryHandler(songs[newSongIndex]);
+
     if (isPlaying) audioRef.current.play();
   };
 

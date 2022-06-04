@@ -8,10 +8,13 @@
   .time-controls-container {
     width: 50%;
     display: flex;
+    align-items: center;
 
     input {
       width: 100%;
-      padding: 1rem 0rem;
+      -webkit-appearance: none;
+      background: transparent;
+      cursor: pointer;
     }
 
     p {
@@ -30,4 +33,36 @@
       cursor: pointer;
     }
   }
+}
+
+// Removing the black outline when slider is in focus.
+input[type="range"]:focus {
+  outline: none;
+}
+
+// changing thumb shape.
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+}
+
+.track {
+  background-color: cyan;
+  width: 100%;
+  height: 1rem;
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.animate-track {
+  background-color: grey;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(100%);
+  pointer-events: none;
 }

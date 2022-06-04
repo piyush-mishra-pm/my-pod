@@ -66,3 +66,14 @@ input[type="range"]::-webkit-slider-thumb {
   transform: translateX(100%);
   pointer-events: none;
 }
+
+@media screen and (max-width: 768px) {
+  .player-container {
+    .time-controls-container {
+      width: 90%;
+    }
+    .play-controls-container {
+      width: 60%;
+    }
+  }
+}

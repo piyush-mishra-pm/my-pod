@@ -6,7 +6,6 @@ import {
   faAngleRight,
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
-import { playAudio } from "../utils";
 
 const Player = ({
   audioRef,
@@ -48,7 +47,7 @@ const Player = ({
     setSongInfo({ ...songInfo, currentTime: e.target.value });
   };
 
-  const skipTrackHandler = (direction) => {
+  const skipTrackHandler = async (direction) => {
     let currentSongIndex = songs.findIndex((s) => s.id === currentSong.id);
     if (direction === "forward") {
       // skip forward
@@ -58,8 +57,10 @@ const Player = ({
       currentSongIndex--;
     }
     // mod ensures that index out of bounds don't happen.
-    setCurrentSong(songs[(songs.length + currentSongIndex) % songs.length]);
-    playAudio(isPlaying, audioRef);
+    await setCurrentSong(
+      songs[(songs.length + currentSongIndex) % songs.length]
+    );
+    if (isPlaying) audioRef.current.play();
   };
 
   // Styling for animated track background based on percentage song played.

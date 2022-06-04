@@ -40,8 +40,18 @@ function App() {
     });
   };
 
+  const autoSkipOnSongEndHandler = async () => {
+    // Increment to the index for next song.
+    let currentSongIndex = songs.findIndex((s) => s.id === currentSong.id) + 1;
+    await setCurrentSong(
+      songs[(songs.length + currentSongIndex) % songs.length]
+    );
+
+    if (isPlaying) audioRef.current.play();
+  };
+
   return (
-    <div className="App">
+    <div className={`App ${libraryStatus ? "library-active" : ""}`}>
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
       <Song currentSong={currentSong} />
       <Player
@@ -69,6 +79,7 @@ function App() {
         onLoadedMetadata={timeUpdateHandler}
         ref={audioRef}
         src={currentSong.audio}
+        onEnded={autoSkipOnSongEndHandler}
       />
     </div>
   );
